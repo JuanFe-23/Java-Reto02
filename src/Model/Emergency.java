@@ -1,4 +1,6 @@
-package src;
+package src.Model;
+
+import src.SeverityNivel;
 
 public abstract class Emergency {
 
@@ -6,7 +8,7 @@ public abstract class Emergency {
     private String location;
     private SeverityNivel severity; // Alto, Medio, Bajo
     private int responseTime; // Tiempo de respuesta en minutos
-    private boolean isAtended;
+    private boolean attended;
     private long startTime;
     private long endTime;
 
@@ -14,8 +16,8 @@ public abstract class Emergency {
         this.type = type;
         this.location = location;
         this.severity = severity;
-        this.responseTime = responseTime;
-        this.isAtended = false;
+        this.responseTime = Math.max(responseTime, 0);
+        this.attended = false;
     }
 
     public String getType() {
@@ -50,12 +52,12 @@ public abstract class Emergency {
         this.responseTime = responseTime;
     }
 
-    public boolean isAtended() {
-        return isAtended;
+    public boolean attended() {
+        return attended;
     }
 
-    public void setAtended(boolean isAtended) {
-        this.isAtended = isAtended;
+    public void attended(boolean isAtended) {
+        this.attended = isAtended;
     }
 
     public long getStartTime() {
@@ -80,7 +82,7 @@ public abstract class Emergency {
 
     public void endAttention() {
         this.endTime = System.currentTimeMillis();
-        this.isAtended = true;
+        this.attended = true;
     }
 
     public long calculateAttentionTime() {
