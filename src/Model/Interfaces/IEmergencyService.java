@@ -8,15 +8,17 @@ public interface IEmergencyService {
 
     int getSttaffAvailable();
 
-    boolean getFuel();
+    int getFuel();
 
-    void assingStaff();
+    boolean isAvailable();
 
-    void releaseStaff();
+    void assingStaff(int amount);
 
-    void spendFuel();
+    void releaseStaff(int amount);
 
-    void putFuel();
+    void spendFuel(int amount);
+
+    void putFuel(int amount);
 
     void attendedEmergency(Emergency emergency);
 

@@ -1,6 +1,6 @@
 package src.Model;
 
-import src.SeverityNivel;
+import src.Model.Utils.SeverityNivel;
 
 public class Fire extends Emergency {
 
