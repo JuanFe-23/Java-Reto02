@@ -1,4 +1,4 @@
-package src.Services;
+package src.Model.Services;
 
 import src.Model.Emergency;
 import src.Model.Interfaces.IEmergencyService;

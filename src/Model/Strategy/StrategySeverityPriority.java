@@ -1,4 +1,4 @@
-package src.Strategy;
+package src.Model.Strategy;
 
 import src.Model.Emergency;
 import src.Model.Interfaces.IPriority;

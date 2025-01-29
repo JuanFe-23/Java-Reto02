@@ -1,4 +1,4 @@
-package src.Factory;
+package src.Model.Factory;
 
 import src.Model.Emergency;
 import src.Model.Fire;
