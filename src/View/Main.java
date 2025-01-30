@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import src.Controller.EmergencySystem;
 import src.Model.Emergency;
+import src.Model.UrbanMap;
 import src.Model.Factory.FactoryEmergency;
 import src.Model.Services.Firefighters;
 import src.Model.Services.Paramedics;
@@ -16,6 +17,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         EmergencySystem system = EmergencySystem.getInstance();
+        UrbanMap urbanMap = new UrbanMap();
 
         initializeResources(system);
 
@@ -42,7 +44,7 @@ public class Main {
 
             switch (option) {
                 case 1:
-                emergencyRegisterMenu(system, sc);
+                emergencyRegisterMenu(system, sc, urbanMap);
                 break;
                 case 2:
                 system.showResources();          
@@ -80,7 +82,7 @@ public class Main {
         system.addResource(new Police("Oficiales - C2",4, 100));
     }
 
-    private static void emergencyRegisterMenu(EmergencySystem system, Scanner sc) {
+    private static void emergencyRegisterMenu(EmergencySystem system, Scanner sc, UrbanMap urbanMap) {
         System.out.println("\n------ REGISTRAR EMERGENCIA ------");
         System.out.println("1. Incendio");
         System.out.println("2. Robo");
@@ -91,15 +93,9 @@ public class Main {
 
         EmergencyType type = null;
         switch(option) {
-            case 1:
-            type = EmergencyType.FIRE;
-            break;
-            case 2:
-            type = EmergencyType.HEIST;
-            break;
-            case 3:
-            type = EmergencyType.VEHICLE_ACCIDENT;
-            break;
+            case 1 -> type = EmergencyType.FIRE;
+            case 2 -> type = EmergencyType.HEIST;
+            case 3 -> type = EmergencyType.VEHICLE_ACCIDENT;
         }
 
         System.out.print("Ingrese la ubicación de la emergencia (zona-norte, zona-sur, zona-centro, zona-oriente, zona-occidente):  ");
@@ -121,7 +117,7 @@ public class Main {
         System.out.print("Ingrese el tiempo estimado de atencion de la emergencia (en minutos): ");
         int estimatedTime = Integer.parseInt(sc.nextLine());
 
-        Emergency newE = FactoryEmergency.createEmergency(type, location, severityNivel, estimatedTime);
+        Emergency newE = FactoryEmergency.createEmergency(type, location, severityNivel, estimatedTime, urbanMap);
         if (newE == null) {
             System.out.println("Tipo de emergencia inválido");
             return;
@@ -145,8 +141,8 @@ public class Main {
             System.out.println((i + 1) + ". " + pendings.get(i).toString());
         }
 
-        System.out.println("Seleccione la emergencia a atender: ");
-        int index = Integer.parseInt(sc.nextLine()) - 1;
+        System.out.print("Seleccione la emergencia a atender: ");
+        int index = sc.nextInt() - 1;
         if (index < 0 || index >= pendings.size()) {
             System.out.println("Opcion no valida");
             return;
