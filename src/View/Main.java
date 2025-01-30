@@ -1,5 +1,7 @@
 package src.View;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,7 +35,7 @@ public class Main {
             System.out.println("4. Ver estadísticas del dia");
             System.out.println("5. Finalizar jornada (Cerrar sistema)");
 
-            System.out.print("Seleccione una opció: ");
+            System.out.print("Seleccione una opción: ");
             
             int option = 0;
             try {
@@ -47,7 +49,7 @@ public class Main {
                 emergencyRegisterMenu(system, sc, urbanMap);
                 break;
                 case 2:
-                system.showResources();          
+                system.showResources(sc);    
                 break;
                 case 3:
                 attendEmergencyMenu(system, sc);
@@ -74,12 +76,12 @@ public class Main {
     }
 
     private static void initializeResources(EmergencySystem system) {
-        system.addResource(new Firefighters("Bomberos - U1",5, 100));
-        system.addResource(new Firefighters("Bomberos - U2",4, 80));
-        system.addResource(new Paramedics("Ambulancia - A1",3, 85));
-        system.addResource(new Paramedics("Ambulancia - A2",2, 70));
-        system.addResource(new Police("Oficiales - M1",2, 50));
-        system.addResource(new Police("Oficiales - C2",4, 100));
+        system.addResource(new Firefighters(" Carro - U1",5, 100));
+        system.addResource(new Firefighters(" Carro - U2",4, 80));
+        system.addResource(new Paramedics(" Ambulancia - A1",3, 85));
+        system.addResource(new Paramedics(" Ambulancia - A2",2, 70));
+        system.addResource(new Police(" Patrulla - M1",2, 50));
+        system.addResource(new Police(" Patrulla - C1",4, 100));
     }
 
     private static void emergencyRegisterMenu(EmergencySystem system, Scanner sc, UrbanMap urbanMap) {
@@ -96,10 +98,20 @@ public class Main {
             case 1 -> type = EmergencyType.FIRE;
             case 2 -> type = EmergencyType.HEIST;
             case 3 -> type = EmergencyType.VEHICLE_ACCIDENT;
+            default -> { System.out.println("Opcion no valida");
+            return;}
+            
+            
         }
 
         System.out.print("Ingrese la ubicación de la emergencia (zona-norte, zona-sur, zona-centro, zona-oriente, zona-occidente):  ");
-        String location = sc.nextLine();
+        String location = sc.nextLine().toLowerCase();
+        while (!urbanMap.isValidLocation(location)) {
+            System.out.println("Ubicación no valida, intente nuevamente.");
+            System.out.print("Ingrese la ubicación de la emergencia (zona-norte, zona-sur, zona-centro, zona-oriente, zona-occidente):  ");
+            location = sc.nextLine().toLowerCase();
+            
+        }
         System.out.print("Ingrese el nivel de gravedad de la emergencia (1. Bajo, 2. Medio, 3. Alto): ");
         SeverityNivel severityNivel = null;
         switch(Integer.parseInt(sc.nextLine())) {
@@ -112,6 +124,9 @@ public class Main {
             case 3:
             severityNivel = SeverityNivel.ALTO;
             break;
+            default:
+            System.out.println("Nivel de gravedad no valido");
+            return;
         }
 
         System.out.print("Ingrese el tiempo estimado de atencion de la emergencia (en minutos): ");
@@ -135,7 +150,7 @@ public class Main {
             System.out.println("No hay emergencias pendientes por antender.");
             return;
         }
-
+        
         System.out.println("\n------ ATENDER EMERGENCIA ------");
         for(int i = 0; i < pendings.size(); i++){
             System.out.println((i + 1) + ". " + pendings.get(i).toString());

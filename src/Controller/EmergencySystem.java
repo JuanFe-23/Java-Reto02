@@ -2,11 +2,13 @@ package src.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import src.Model.Emergency;
 import src.Model.Fire;
 import src.Model.Heist;
+import src.Model.UrbanMap;
 import src.Model.VehicleAccident;
 import src.Model.Interfaces.IEmergencyService;
 import src.Model.Interfaces.IPriority;
@@ -23,6 +25,7 @@ public class EmergencySystem implements EmergencySubject {
     private List<IEmergencyService> resources;
     private List<ObserverEmergencies> observers;
     private IPriority priority;
+    private UrbanMap urbanMap = new UrbanMap();
 
     private long totalAttentionTime;
     private int emergeciesAttended;
@@ -66,10 +69,34 @@ public class EmergencySystem implements EmergencySubject {
         resources.add(resource);
     }
 
-    public void showResources() {
+    public void showResources(Scanner sc) {
         System.out.println("\n------ ESTADO DE RECURSOS ------");
         for (IEmergencyService resource : resources) {
             System.out.println(resource.toString());
+        }
+
+        System.out.print("\n¿Desea agregar más personal? (S/N): ");
+        String option = sc.next().toLowerCase();
+        sc.nextLine();
+        if (option.equals("s")) {
+            System.out.print("Ingrese el nombre del recurso: ");
+            String recourseName = sc.nextLine().toLowerCase();
+            
+            IEmergencyService selectedResource = resources.stream()
+            .filter(r -> r.getName().toLowerCase().contains(recourseName.toLowerCase()))
+            .findFirst().orElse(null);
+
+            if (selectedResource != null) {
+                System.out.print("Ingrese la cantidad de personal a agregar: ");
+                int amount = sc.nextInt();
+                sc.nextLine();
+                selectedResource.releaseStaff(amount);
+                System.out.println("Personal agregado a: "+ recourseName);
+                
+            } else {
+                System.out.println("Recurso no encontrado.");
+            }
+            
         }
     }
 
@@ -78,6 +105,8 @@ public class EmergencySystem implements EmergencySubject {
     }
 
     public void registerNewEmergency(Emergency e) {
+        int distance = urbanMap.calculateDistance(e.getLocation());
+        e.setResponseTime(e.getResponseTime() + distance * 2);
         listEmergencies.add(e);
         notifyEmergencies(e);
     }

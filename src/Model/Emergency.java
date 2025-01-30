@@ -89,13 +89,12 @@ public abstract class Emergency {
         return this.endTime - this.startTime;
     }
 
+    public String getDescription() {
+        return String.format("%s en %s (gravedad: %s)", type, location, severity);
+    }
+
     public String toString() {
-        return "Emergencia{" +
-                "'" + type + '\'' +
-                ", Ubicacion: '" + location + '\'' +
-                ", Gravedad: " + severity +
-                ", Tiempo de respuesta: " + responseTime + " minutos" +
-                '}';
+        return getDescription() + " - Tiempo de respuesta: " + responseTime + " minutos";
     }
 
 }

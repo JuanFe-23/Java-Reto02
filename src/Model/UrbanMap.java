@@ -27,6 +27,18 @@ public class UrbanMap {
         }
 
         return 10;
+
+
+    }
+
+    public boolean isValidLocation(String location) {
+    
+        for (Location loc : locations) {
+            if (loc.getZone().equalsIgnoreCase(location)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
