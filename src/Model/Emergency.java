@@ -56,7 +56,7 @@ public abstract class Emergency {
         return attended;
     }
 
-    public void attended(boolean isAtended) {
+    public void isAttended(boolean isAtended) {
         this.attended = isAtended;
     }
 
