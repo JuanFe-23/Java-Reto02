@@ -90,11 +90,11 @@ public abstract class Emergency {
     }
 
     public String toString() {
-        return "Emergency{" +
-                "Tipo='" + type + '\'' +
-                ", Ubicacion='" + location + '\'' +
-                ", Gravedad=" + severity +
-                ", Tiempo de respuesta=" + responseTime + " en minutos" +
+        return "Emergencia{" +
+                "Tipo: '" + type + '\'' +
+                ", Ubicacion: '" + location + '\'' +
+                ", Gravedad:" + severity +
+                ", Tiempo de respuesta: " + responseTime + " en minutos" +
                 '}';
     }
 

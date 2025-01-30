@@ -1,11 +1,16 @@
 package src.View;
 
+import java.util.List;
 import java.util.Scanner;
 
 import src.Controller.EmergencySystem;
+import src.Model.Emergency;
+import src.Model.Factory.FactoryEmergency;
 import src.Model.Services.Firefighters;
 import src.Model.Services.Paramedics;
 import src.Model.Services.Police;
+import src.Model.Utils.EmergencyType;
+import src.Model.Utils.SeverityNivel;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -20,7 +25,7 @@ public class Main {
         while (!exit) {
             System.out.println("\n------ MENÚ PRINCIPAL ------");
             System.out.println("\n ------ SISTEMA DE GESTIÓN DE EMERGENCIAS ------");
-            System.out.println(" 1. Registrar Emergencia");
+            System.out.println("1. Registrar Emergencia");
             System.out.println("2. Ver recursos disponibles");
             System.out.println("3. Atender una emergencia");
             System.out.println("4. Ver estadísticas del dia");
@@ -37,16 +42,16 @@ public class Main {
 
             switch (option) {
                 case 1:
-                // Registrar Emergencia Menu
+                emergencyRegisterMenu(system, sc);
                 break;
                 case 2:
-                // Mostrar recursos disponibles Menu              
+                system.showResources();          
                 break;
                 case 3:
-                // Atender emergencia Menu
+                attendEmergencyMenu(system, sc);
                 break;
                 case 4:
-                // Ver estadisticas del dia Menu
+                system.showStatistics();
                 break;
                 case 5:
                 System.out.println("Finalizando jornada...");
@@ -64,13 +69,6 @@ public class Main {
         sc.close();
 
 
-        
-
-
-    
-    
-    
-    
     }
 
     private static void initializeResources(EmergencySystem system) {
@@ -81,4 +79,85 @@ public class Main {
         system.addResource(new Police("Oficiales - M1",2, 50));
         system.addResource(new Police("Oficiales - C2",4, 100));
     }
-}
+
+    private static void emergencyRegisterMenu(EmergencySystem system, Scanner sc) {
+        System.out.println("\n------ REGISTRAR EMERGENCIA ------");
+        System.out.println("1. Incendio");
+        System.out.println("2. Robo");
+        System.out.println("3. Accidente de vehiculo");
+        System.out.print("Seleccione el tipo de emergencia: ");
+        int option = sc.nextInt();
+        sc.nextLine();
+
+        EmergencyType type = null;
+        switch(option) {
+            case 1:
+            type = EmergencyType.FIRE;
+            break;
+            case 2:
+            type = EmergencyType.HEIST;
+            break;
+            case 3:
+            type = EmergencyType.VEHICLE_ACCIDENT;
+            break;
+        }
+
+        System.out.print("Ingrese la ubicación de la emergencia (zona-norte, zona-sur, zona-centro, zona-oriente, zona-occidente):  ");
+        String location = sc.nextLine();
+        System.out.print("Ingrese el nivel de gravedad de la emergencia (1. Bajo, 2. Medio, 3. Alto): ");
+        SeverityNivel severityNivel = null;
+        switch(Integer.parseInt(sc.nextLine())) {
+            case 1:
+            severityNivel = SeverityNivel.BAJO;
+            break;
+            case 2:
+            severityNivel = SeverityNivel.MEDIO;
+            break;
+            case 3:
+            severityNivel = SeverityNivel.ALTO;
+            break;
+        }
+
+        System.out.print("Ingrese el tiempo estimado de atencion de la emergencia (en minutos): ");
+        int estimatedTime = Integer.parseInt(sc.nextLine());
+
+        Emergency newE = FactoryEmergency.createEmergency(type, location, severityNivel, estimatedTime);
+        if (newE == null) {
+            System.out.println("Tipo de emergencia inválido");
+            return;
+        }
+
+        system.registerNewEmergency(newE);
+        System.out.println("Emergencia registrada: " + newE);
+        
+    }
+
+    private static void attendEmergencyMenu(EmergencySystem system, Scanner sc) {
+
+        List<Emergency> pendings = system.getEmergenciesPend();
+        if(pendings.isEmpty()) {
+            System.out.println("No hay emergencias pendientes por antender.");
+            return;
+        }
+
+        System.out.println("\n------ ATENDER EMERGENCIA ------");
+        for(int i = 0; i < pendings.size(); i++){
+            System.out.println((i + 1) + ". " + pendings.get(i).toString());
+        }
+
+        System.out.println("Seleccione la emergencia a atender: ");
+        int index = Integer.parseInt(sc.nextLine()) - 1;
+        if (index < 0 || index >= pendings.size()) {
+            System.out.println("Opcion no valida");
+            return;
+        }
+
+        Emergency emergency = pendings.get(index);
+        system.allocateResources(emergency);
+        system.attendEmergency(emergency);
+            
+        }
+
+
+    }
+

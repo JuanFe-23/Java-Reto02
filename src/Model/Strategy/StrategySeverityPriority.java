@@ -9,11 +9,11 @@ public class StrategySeverityPriority implements IPriority {
     public int calculatePriority(Emergency emergency) {
 
         switch (emergency.getSeverity()) {
-            case LOW:
+            case BAJO:
                 return 1;
-            case MEDIUM:
+            case MEDIO:
                 return 2;
-            case HIGH:
+            case ALTO:
                 return 3;
             default:
                 return 1;
