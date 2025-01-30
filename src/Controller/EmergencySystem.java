@@ -2,7 +2,6 @@ package src.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import src.Model.Emergency;
@@ -23,7 +22,6 @@ public class EmergencySystem implements EmergencySubject {
     private List<Emergency> listEmergencies;
     private List<IEmergencyService> resources;
     private List<ObserverEmergencies> observers;
-
     private IPriority priority;
 
     private long totalAttentionTime;

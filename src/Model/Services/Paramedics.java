@@ -4,8 +4,8 @@ import src.Model.Emergency;
 
 public class Paramedics extends BaseService {
 
-    public Paramedics(int staffAvailable, int fuel) {
-        super("Paramedicos", staffAvailable, fuel);
+    public Paramedics(String id,int staffAvailable, int fuel) {
+        super(id, staffAvailable, fuel);
     }
 
     @Override

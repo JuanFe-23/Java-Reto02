@@ -4,8 +4,8 @@ import src.Model.Emergency;
 
 public class Firefighters extends BaseService{
 
-    public Firefighters(int staffAvailable, int fuel) {
-        super("Bomberos", staffAvailable, fuel);
+    public Firefighters(String id, int staffAvailable, int fuel) {
+        super(id, staffAvailable, fuel);
       
     }
 

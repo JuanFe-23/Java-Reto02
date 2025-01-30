@@ -4,8 +4,8 @@ import src.Model.Emergency;
 
 public class Police extends BaseService{
 
-    public Police(int staffAvailable, int fuel) {
-        super("Oficiales", staffAvailable, fuel);
+    public Police(String id,int staffAvailable, int fuel) {
+        super(id, staffAvailable, fuel);
        }
 
     @Override
