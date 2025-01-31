@@ -64,10 +64,10 @@ public abstract class BaseService implements IEmergencyService {
 
     @Override
     public String toString() {
-        return "BaseService{" +
-                "Servicio='" + name + '\'' +
-                ", Personal Disponible=" + staffAvailable +
-                ", Combustible=" + fuel +
+        return "{" +
+                "Servicio: '" + name + '\'' +
+                ", Personal Disponible: " + staffAvailable +
+                ", Combustible: " + fuel +
                 '}';
     }
 
