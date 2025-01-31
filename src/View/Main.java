@@ -34,7 +34,7 @@ public class Main {
             System.out.println("5. Finalizar jornada (Cerrar sistema)");
 
             System.out.print("Seleccione una opción: ");
-            
+
             int option = 0;
             try {
                 option = sc.nextInt();
@@ -44,42 +44,40 @@ public class Main {
 
             switch (option) {
                 case 1:
-                emergencyRegisterMenu(system, sc, urbanMap);
-                break;
+                    emergencyRegisterMenu(system, sc, urbanMap);
+                    break;
                 case 2:
-                system.showResources(sc);    
-                break;
+                    system.showResources(sc);
+                    break;
                 case 3:
-                attendEmergencyMenu(system, sc);
-                break;
+                    attendEmergencyMenu(system, sc);
+                    break;
                 case 4:
-                system.showStatistics();
-                break;
+                    system.showStatistics();
+                    break;
                 case 5:
-                System.out.println("Finalizando jornada...");
-                system.endDay();
-                exit = true;
-                break;
+                    System.out.println("Finalizando jornada...");
+                    system.endDay();
+                    exit = true;
+                    break;
                 default:
-                System.out.println("Opcion no valida");
-                break;
+                    System.out.println("Opcion no valida");
+                    break;
 
-                
             }
         }
 
         sc.close();
 
-
     }
 
     private static void initializeResources(EmergencySystem system) {
-        system.addResource(new Firefighters(" Carro - U1",5, 100));
-        system.addResource(new Firefighters(" Carro - U2",4, 80));
-        system.addResource(new Paramedics(" Ambulancia - A1",3, 85));
-        system.addResource(new Paramedics(" Ambulancia - A2",2, 70));
-        system.addResource(new Police(" Patrulla - M1",2, 50));
-        system.addResource(new Police(" Patrulla - C1",4, 100));
+        system.addResource(new Firefighters(" Carro - U1", 5, 100));
+        system.addResource(new Firefighters(" Carro - U2", 4, 80));
+        system.addResource(new Paramedics(" Ambulancia - A1", 3, 85));
+        system.addResource(new Paramedics(" Ambulancia - A2", 2, 70));
+        system.addResource(new Police(" Patrulla - M1", 2, 50));
+        system.addResource(new Police(" Patrulla - C1", 4, 100));
     }
 
     private static void emergencyRegisterMenu(EmergencySystem system, Scanner sc, UrbanMap urbanMap) {
@@ -92,39 +90,38 @@ public class Main {
         sc.nextLine();
 
         EmergencyType type = null;
-        switch(option) {
+        switch (option) {
             case 1 -> type = EmergencyType.FIRE;
             case 2 -> type = EmergencyType.HEIST;
             case 3 -> type = EmergencyType.VEHICLE_ACCIDENT;
-            default -> { System.out.println("Opcion no valida");
-            return;}
-            
-            
+            default -> {
+                System.out.println("Opcion no valida");
+                return;
+            }
+
         }
 
-        System.out.print("Ingrese la ubicación de la emergencia (zona-norte, zona-sur, zona-centro, zona-oriente, zona-occidente):  ");
+        System.out.print(
+                "Ingrese la ubicación de la emergencia (zona-norte, zona-sur, zona-centro, zona-oriente, zona-occidente):  ");
         String location = sc.nextLine().toLowerCase();
         while (!urbanMap.isValidLocation(location)) {
             System.out.println("Ubicación no valida, intente nuevamente.");
-            System.out.print("Ingrese la ubicación de la emergencia (zona-norte, zona-sur, zona-centro, zona-oriente, zona-occidente):  ");
+            System.out.print(
+                    "Ingrese la ubicación de la emergencia (zona-norte, zona-sur, zona-centro, zona-oriente, zona-occidente):  ");
             location = sc.nextLine().toLowerCase();
-            
+
         }
         System.out.print("Ingrese el nivel de gravedad de la emergencia (1. Bajo, 2. Medio, 3. Alto): ");
         SeverityNivel severityNivel = null;
-        switch(Integer.parseInt(sc.nextLine())) {
-            case 1:
-            severityNivel = SeverityNivel.BAJO;
-            break;
-            case 2:
-            severityNivel = SeverityNivel.MEDIO;
-            break;
-            case 3:
-            severityNivel = SeverityNivel.ALTO;
-            break;
-            default:
-            System.out.println("Nivel de gravedad no valido");
-            return;
+        switch (Integer.parseInt(sc.nextLine())) {
+            case 1 -> severityNivel = SeverityNivel.BAJO;
+            case 2 -> severityNivel = SeverityNivel.MEDIO;
+            case 3 -> severityNivel = SeverityNivel.ALTO;
+
+            default -> {
+                System.out.println("Nivel de gravedad no valido");
+                return;
+            }
         }
 
         System.out.print("Ingrese el tiempo estimado de atencion de la emergencia (en minutos): ");
@@ -138,19 +135,19 @@ public class Main {
 
         system.registerNewEmergency(newE);
         System.out.println("Emergencia registrada: " + newE);
-        
+
     }
 
     private static void attendEmergencyMenu(EmergencySystem system, Scanner sc) {
 
         List<Emergency> pendings = system.getEmergenciesPend();
-        if(pendings.isEmpty()) {
+        if (pendings.isEmpty()) {
             System.out.println("No hay emergencias pendientes por antender.");
             return;
         }
-        
+
         System.out.println("\n------ ATENDER EMERGENCIA ------");
-        for(int i = 0; i < pendings.size(); i++){
+        for (int i = 0; i < pendings.size(); i++) {
             System.out.println((i + 1) + ". " + pendings.get(i).toString());
         }
 
@@ -164,9 +161,7 @@ public class Main {
         Emergency emergency = pendings.get(index);
         system.allocateResources(emergency);
         system.attendEmergency(emergency);
-            
-        }
-
 
     }
 
+}
