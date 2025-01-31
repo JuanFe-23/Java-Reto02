@@ -41,7 +41,7 @@ public abstract class BaseService implements IEmergencyService {
             staffAvailable -= amount;
             
         } else{
-            System.out.println("Por el momento hay suficiente personal para atender la emergencia");
+            System.out.println("Por el momento no hay suficiente personal para atender la emergencia");
         }
     }
 

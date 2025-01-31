@@ -15,7 +15,7 @@ public class Police extends BaseService{
         System.out.println("-> [policia" + getName() + "]: " + emergency.toString());
 
         assingStaff(2);
-        spendFuel(3);
+        spendFuel(5);
      
     }
 

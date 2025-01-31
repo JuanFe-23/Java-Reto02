@@ -15,6 +15,7 @@ import src.Model.Interfaces.IPriority;
 import src.Model.Observer.EmergencySubject;
 import src.Model.Observer.ObserverEmergencies;
 import src.Model.Services.Firefighters;
+import src.Model.Services.Paramedics;
 import src.Model.Services.Police;
 import src.Model.Strategy.StrategySeverityPriority;
 
@@ -75,28 +76,49 @@ public class EmergencySystem implements EmergencySubject {
             System.out.println(resource.toString());
         }
 
-        System.out.print("\n¿Desea agregar más personal? (S/N): ");
+        System.out.print("\n1. ¿Desea agregar más personal? (S/N): ");
         String option = sc.next().toLowerCase();
         sc.nextLine();
         if (option.equals("s")) {
-            System.out.print("Ingrese el nombre del recurso: ");
+            System.out.print("Ingrese el nombre del servicio de emergencia: ");
             String recourseName = sc.nextLine().toLowerCase();
-            
+
             IEmergencyService selectedResource = resources.stream()
-            .filter(r -> r.getName().toLowerCase().contains(recourseName.toLowerCase()))
-            .findFirst().orElse(null);
+                    .filter(r -> r.getName().toLowerCase().contains(recourseName.toLowerCase()))
+                    .findFirst().orElse(null);
 
             if (selectedResource != null) {
                 System.out.print("Ingrese la cantidad de personal a agregar: ");
                 int amount = sc.nextInt();
                 sc.nextLine();
                 selectedResource.releaseStaff(amount);
-                System.out.println("Personal agregado a: "+ recourseName);
-                
+                System.out.println("Personal agregado a: " + recourseName);
+
             } else {
-                System.out.println("Recurso no encontrado.");
+                System.out.println("Servicio de emergencia no encontrado.");
             }
-            
+
+        }
+
+        System.out.print("2. ¿Desea agregar combustible? (S/N): ");
+        option = sc.next().toLowerCase();
+        sc.nextLine();
+        if (option.equals("s")) {
+            System.out.print("Ingrese el nombre del servicio de emergencia: ");
+            String recourseName = sc.nextLine().toLowerCase();
+            IEmergencyService selectedResource = resources.stream()
+                    .filter(r -> r.getName().toLowerCase().contains(recourseName.toLowerCase()))
+                    .findFirst().orElse(null);
+
+            if (selectedResource != null) {
+                System.out.print("Ingrese la cantidad de combustible a agregar (litros): ");
+                int amount = sc.nextInt();
+                sc.nextLine();
+                selectedResource.putFuel(amount);
+                System.out.println("Combustible agregado a: " + recourseName);
+            } else {
+                System.out.println("Servicio de emergencia no encontrado.");
+            }
         }
     }
 
@@ -123,30 +145,41 @@ public class EmergencySystem implements EmergencySubject {
         }
         System.out.println("-> Asignando los recursos atomaticamente");
 
-        if (emergency instanceof Fire) {
+        boolean resourceAssigned = false;
+
+        if (emergency instanceof Fire){
             for (IEmergencyService resource : aviableResources) {
                 if (resource instanceof Firefighters) {
                     resource.attendedEmergency(emergency);
+                    resourceAssigned = true;
                     break;
                 }
             }
-
-        } else if (emergency instanceof Heist) {
+        } else if (emergency instanceof Heist){
             for (IEmergencyService resource : aviableResources) {
                 if (resource instanceof Police) {
                     resource.attendedEmergency(emergency);
+                    resourceAssigned = true;
                     break;
                 }
             }
-        } else if (emergency instanceof VehicleAccident) {
+        } else if (emergency instanceof VehicleAccident){
             for (IEmergencyService resource : aviableResources) {
-                if (resource instanceof Firefighters) {
+                if (resource instanceof Paramedics) {
                     resource.attendedEmergency(emergency);
+                    resourceAssigned = true;
                     break;
                 }
             }
-
         }
+
+        if (!resourceAssigned) {
+            System.out.println("No hay recursos disponibles para atender la emergencia");
+        }
+
+
+        
+
     }
 
     public void attendEmergency(Emergency emergency) {
@@ -164,7 +197,7 @@ public class EmergencySystem implements EmergencySubject {
         }
 
         emergency.endAttention();
-        System.out.println("Emergencia atendida: " + emergency.toString());
+        System.out.println("\nEmergencia atendida con exito... \nEmergencia: " + emergency.toString());
 
         emergeciesAttended++;
         totalAttentionTime += emergency.getResponseTime();
@@ -190,8 +223,8 @@ public class EmergencySystem implements EmergencySubject {
     public void endDay() {
         showStatistics();
         System.out.println("Guardando estadísticas del día...");
-        System.out.println("\n------ FIN DEL DÍA ------");
-        
+        System.out.println("\n------ FIN DEL DÍA ------\n");
+
     }
 
     public void setStrategyPriority(IPriority newPriority) {

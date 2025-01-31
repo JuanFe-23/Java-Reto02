@@ -15,7 +15,7 @@ public class Firefighters extends BaseService{
         System.out.println("-> [Bomberos" + getName() + "]: " + emergency.toString());
 
         assingStaff(5);
-        spendFuel(10);
+        spendFuel(15);
     }
 
 }

@@ -72,12 +72,12 @@ public class Main {
     }
 
     private static void initializeResources(EmergencySystem system) {
-        system.addResource(new Firefighters(" Carro - U1", 5, 100));
-        system.addResource(new Firefighters(" Carro - U2", 4, 80));
-        system.addResource(new Paramedics(" Ambulancia - A1", 3, 85));
-        system.addResource(new Paramedics(" Ambulancia - A2", 2, 70));
-        system.addResource(new Police(" Patrulla - M1", 2, 50));
-        system.addResource(new Police(" Patrulla - C1", 4, 100));
+        system.addResource(new Firefighters(" Carro - U1", 5, 80));
+        system.addResource(new Firefighters(" Carro - U2", 5, 70));
+        system.addResource(new Paramedics(" Ambulancia - A1", 3, 45));
+        system.addResource(new Paramedics(" Ambulancia - A2", 3, 30));
+        system.addResource(new Police(" Patrulla - M1", 2, 20));
+        system.addResource(new Police(" Patrulla - C1", 4, 50));
     }
 
     private static void emergencyRegisterMenu(EmergencySystem system, Scanner sc, UrbanMap urbanMap) {
@@ -163,5 +163,6 @@ public class Main {
         system.attendEmergency(emergency);
 
     }
+
 
 }

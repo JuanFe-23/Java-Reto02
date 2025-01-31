@@ -12,10 +12,10 @@ public class Paramedics extends BaseService {
     public void attendedEmergency(Emergency emergency) {
 
         System.out.println("Ambulancia en camino a la emergencia");
-        System.out.println("-> [Ambulancia" + getName() + "] " + emergency.toString());
+        System.out.println("-> [Paramedicos" + getName() + "] " + emergency.toString());
 
         assingStaff(3);
-        spendFuel(5);
+        spendFuel(8);
 
     }
 
