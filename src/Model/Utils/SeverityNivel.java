@@ -1,4 +1,4 @@
-package src.Model.Utils;
+package Model.Utils;
 
 public enum SeverityNivel {
 

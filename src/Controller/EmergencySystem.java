@@ -1,23 +1,23 @@
-package src.Controller;
+package Controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import src.Model.Emergency;
-import src.Model.Fire;
-import src.Model.Heist;
-import src.Model.UrbanMap;
-import src.Model.VehicleAccident;
-import src.Model.Interfaces.IEmergencyService;
-import src.Model.Interfaces.IPriority;
-import src.Model.Observer.EmergencySubject;
-import src.Model.Observer.ObserverEmergencies;
-import src.Model.Services.Firefighters;
-import src.Model.Services.Paramedics;
-import src.Model.Services.Police;
-import src.Model.Strategy.StrategySeverityPriority;
+import Model.Emergency;
+import Model.Fire;
+import Model.Heist;
+import Model.UrbanMap;
+import Model.VehicleAccident;
+import Model.Interfaces.IEmergencyService;
+import Model.Interfaces.IPriority;
+import Model.Observer.EmergencySubject;
+import Model.Observer.ObserverEmergencies;
+import Model.Services.Firefighters;
+import Model.Services.Paramedics;
+import Model.Services.Police;
+import Model.Strategy.StrategySeverityPriority;
 
 public class EmergencySystem implements EmergencySubject {
 

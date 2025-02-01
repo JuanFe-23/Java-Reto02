@@ -1,8 +1,8 @@
-package src.Model.Strategy;
+package Model.Strategy;
 
-import src.Model.Emergency;
-import src.Model.UrbanMap;
-import src.Model.Interfaces.IPriority;
+import Model.Emergency;
+import Model.UrbanMap;
+import Model.Interfaces.IPriority;
 
 public class StrategyClosePriority implements IPriority {
 

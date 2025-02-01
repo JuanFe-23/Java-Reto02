@@ -1,7 +1,7 @@
-package src.Model.Services;
+package Model.Services;
 
-import src.Model.Emergency;
-import src.Model.Interfaces.IEmergencyService;
+import Model.Emergency;
+import Model.Interfaces.IEmergencyService;
 
 public abstract class BaseService implements IEmergencyService {
 

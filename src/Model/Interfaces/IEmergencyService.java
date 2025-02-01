@@ -1,6 +1,6 @@
-package src.Model.Interfaces;
+package Model.Interfaces;
 
-import src.Model.Emergency;
+import Model.Emergency;
 
 public interface IEmergencyService {
 

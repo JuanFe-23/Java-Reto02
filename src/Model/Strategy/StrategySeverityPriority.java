@@ -1,7 +1,7 @@
-package src.Model.Strategy;
+package Model.Strategy;
 
-import src.Model.Emergency;
-import src.Model.Interfaces.IPriority;
+import Model.Emergency;
+import Model.Interfaces.IPriority;
 
 public class StrategySeverityPriority implements IPriority {
 

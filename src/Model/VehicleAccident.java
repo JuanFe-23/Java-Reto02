@@ -1,6 +1,6 @@
-package src.Model;
+package Model;
 
-import src.Model.Utils.SeverityNivel;
+import Model.Utils.SeverityNivel;
 
 public class VehicleAccident extends Emergency{
 

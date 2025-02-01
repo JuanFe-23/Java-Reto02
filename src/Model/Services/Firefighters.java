@@ -1,6 +1,6 @@
-package src.Model.Services;
+package Model.Services;
 
-import src.Model.Emergency;
+import Model.Emergency;
 
 public class Firefighters extends BaseService{
 

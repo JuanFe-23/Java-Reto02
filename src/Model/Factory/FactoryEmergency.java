@@ -1,12 +1,12 @@
-package src.Model.Factory;
+package Model.Factory;
 
-import src.Model.Emergency;
-import src.Model.Fire;
-import src.Model.Heist;
-import src.Model.UrbanMap;
-import src.Model.VehicleAccident;
-import src.Model.Utils.EmergencyType;
-import src.Model.Utils.SeverityNivel;
+import Model.Emergency;
+import Model.Fire;
+import Model.Heist;
+import Model.UrbanMap;
+import Model.VehicleAccident;
+import Model.Utils.EmergencyType;
+import Model.Utils.SeverityNivel;
 
 public class FactoryEmergency {
 

@@ -1,17 +1,17 @@
-package src.View;
+package View;
 
 import java.util.List;
 import java.util.Scanner;
 
-import src.Controller.EmergencySystem;
-import src.Model.Emergency;
-import src.Model.UrbanMap;
-import src.Model.Factory.FactoryEmergency;
-import src.Model.Services.Firefighters;
-import src.Model.Services.Paramedics;
-import src.Model.Services.Police;
-import src.Model.Utils.EmergencyType;
-import src.Model.Utils.SeverityNivel;
+import Controller.EmergencySystem;
+import Model.Emergency;
+import Model.UrbanMap;
+import Model.Factory.FactoryEmergency;
+import Model.Services.Firefighters;
+import Model.Services.Paramedics;
+import Model.Services.Police;
+import Model.Utils.EmergencyType;
+import Model.Utils.SeverityNivel;
 
 public class Main {
     public static void main(String[] args) throws Exception {

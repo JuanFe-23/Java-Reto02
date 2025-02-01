@@ -1,6 +1,6 @@
-package src.Model.Observer;
+package Model.Observer;
 
-import src.Model.Emergency;
+import Model.Emergency;
 
 public interface EmergencySubject {
 
